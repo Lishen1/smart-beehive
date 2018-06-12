@@ -1,0 +1,13 @@
+ 
+sensors:
+  WeightSensor:
+    clockPin: 7
+    dataPin: 0
+
+    offset: 0
+    scale: 16000.0
+actuators:
+  FanRelay:
+    pin: 1
+  HeaterRelay:
+    pin: 2
