@@ -9,6 +9,7 @@ class PortType(Enum):
 Port = namedtuple('Port', [
     'index',
     'type',
+    'owner'
 ])
 
 
@@ -28,11 +29,12 @@ class WiringProvider:
         if not WiringProvider.inited:
             WiringProvider.init()
 
-        if (owner_name, port_idx) in WiringProvider.ports.keys():
-            raise KeyError(f'port {port_idx} type {port_type} already owned by {owner_name}')
+        if port_idx in WiringProvider.ports.keys():
+            port = WiringProvider.ports[port_idx]
+            raise KeyError(f'port {port.index} type {port.type} already owned by {port.owner}')
 
-        port = Port(port_idx, port_type)
-        WiringProvider.ports[(owner_name, port_idx)] = port
+        port = Port(port_idx, port_type, owner_name)
+        WiringProvider.ports[port_idx] = port
         return port
 
     @staticmethod
